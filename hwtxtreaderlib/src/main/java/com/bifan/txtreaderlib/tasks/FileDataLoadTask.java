@@ -56,8 +56,7 @@ public class FileDataLoadTask implements ITxtTask {
     private Boolean ReadData(String filePath, String Charset, IParagraphData paragraphData, List<IChapter> chapters) {
         File file = new File(filePath);
         BufferedReader bufferedReader = null;
-        ELogger.log(tag, "start to  ReadData");
-        ELogger.log(tag, "--file Charset:" + Charset);
+        ELogger.log(tag, "start to  ReadData,file Charset:" + Charset);
         try {
             bufferedReader = new BufferedReader(
                     new InputStreamReader(new FileInputStream(file), Charset));
@@ -123,6 +122,7 @@ public class FileDataLoadTask implements ITxtTask {
     }
 
     private static final String ChapterPatternStr = "(^.{0,3}\\s*第)(.{1,9})[章节卷集部篇回](\\s*)";
+    private static final Pattern ChapterPattern = Pattern.compile(ChapterPatternStr);
 
     /**
      * @param data              文本数据
@@ -134,7 +134,7 @@ public class FileDataLoadTask implements ITxtTask {
     private IChapter compileChapter(String data, int chapterStartIndex, int ParagraphIndex, int chapterIndex) {
         if (chapterMatcher == null) {
             if (data.trim().startsWith("第") || data.contains("第")) {
-                Pattern p = Pattern.compile(ChapterPatternStr);
+                Pattern p = ChapterPattern;
                 Matcher matcher = p.matcher(data);
                 while (matcher.find()) {
                     int startIndex = 0;

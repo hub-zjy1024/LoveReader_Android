@@ -7,7 +7,6 @@ import com.bifan.txtreaderlib.interfaces.ILoadListener;
 import com.bifan.txtreaderlib.interfaces.ITxtTask;
 import com.bifan.txtreaderlib.main.FileReadRecordDB;
 import com.bifan.txtreaderlib.main.TxtReaderContext;
-import com.bifan.txtreaderlib.utils.ELogger;
 import com.bifan.txtreaderlib.utils.FileCharsetDetector;
 import com.bifan.txtreaderlib.utils.FileHashUtil;
 import com.bifan.txtreaderlib.utils.FileUtil;
@@ -33,7 +32,6 @@ public class TxtFileLoader {
         }
         loadListener.onMessage("initFile start");
         initFile(filePath, fileName, readerContext);
-        ELogger.log(tag, "initFile done");
         loadListener.onMessage("initFile done");
         ITxtTask txtTask = new FileDataLoadTask();
         txtTask.Run(loadListener, readerContext);

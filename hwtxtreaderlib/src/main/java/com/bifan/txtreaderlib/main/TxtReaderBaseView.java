@@ -962,7 +962,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                 @Override
                 public void onMessage(String message) {
                     CurrentMode = Mode.Normal;
-                    ELogger.log(tag + "PageNextTask", "PageNextTask onMessage" + message);
+                    ELogger.log(tag + "PageNextTask", "PageNextTask onMessage "  + message);
                 }
             }, readerContext);
         }

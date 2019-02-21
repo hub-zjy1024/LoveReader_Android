@@ -13,14 +13,22 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bifan.txtreaderlib.main.TxtConfig;
 import com.bifan.txtreaderlib.ui.HwTxtPlayActivity;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import hw.txtreader.adapter.BoolistAdapter;
+import hw.txtreader.entity.Book;
 
 public class DemoActivity extends AppCompatActivity {
     private String tag = "MainActivity";
@@ -28,12 +36,28 @@ public class DemoActivity extends AppCompatActivity {
     private String FilePath = Environment.getExternalStorageDirectory() + "/test5.txt";
     private Boolean Permit = false;
     private EditText mEditText;
+    private List<Book> mData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mEditText = (EditText) findViewById(R.id.editText);
+        ListView lv = (ListView) findViewById(R.id.demo_listBooks);
+        mData = new ArrayList<>();
+        List<Book> books = loadRecentList();
+        mData.addAll(books);
+        BoolistAdapter mAdapter = new BoolistAdapter(this, mData, R.layout.item_recent_books);
+        lv.setAdapter(mAdapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Book tBook = (Book) parent.getItemAtPosition(position);
+                String filePath = tBook.filePath;
+                loadFile(filePath);
+            }
+        });
         mEditText.setText(FilePath);
         if (CheckPermission()) {
             Permit = true;
@@ -42,6 +66,10 @@ public class DemoActivity extends AppCompatActivity {
         }
 
     }
+    List<Book> loadRecentList(){
+        return SettingSp.loadRecentList(this);
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -57,25 +85,43 @@ public class DemoActivity extends AppCompatActivity {
             } catch (Exception e) {
                 toast("选择出错了");
             }
+            String newPath = GetPicUtils.getImageAbsolutePath(this, uri);
+            Log.e("zjy", "DemoActivity->onActivityResult(): SelectFIle==" + newPath);
+            mEditText.setText(newPath);
+            loadFile(mEditText);
         }
     }
 
     public void chooseFile(View view) {
+     //   Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("text/plain");//设置类型
+        //包含所有类型，image/*  video/*
+        intent.setType("*/*");
+//        intent.setType("text/plain");//设置类型
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(intent, 3);
     }
 
+    public void loadFile(String filePath) {
+        if (TextUtils.isEmpty(filePath) || !(new File(filePath)).exists()) {
+            toast("文件不存在");
+        } else {
+            //            CustTxtPlayerActivity.loadTxtFile(this, filePath);
+            CustTxtPlayerActivity.loadTxtToRead(this, filePath);
+        }
+    }
     public void loadFile(View view) {
         if (Permit) {
-            TxtConfig.saveIsOnVerticalPageMode(this,false);
+            TxtConfig.saveIsOnVerticalPageMode(this, false);
             FilePath = mEditText.getText().toString().trim();
             if (TextUtils.isEmpty(FilePath) || !(new File(FilePath)).exists()) {
                 toast("文件不存在");
             } else {
-                HwTxtPlayActivity.loadTxtFile(this, FilePath);
+//                HwTxtPlayActivity.loadTxtFile(this, FilePath);
+                CustTxtPlayerActivity.loadTxtToRead(this, FilePath);
             }
+        } else {
+            toast("请重新启动应用，并授予权限");
         }
     }
 
@@ -135,7 +181,7 @@ public class DemoActivity extends AppCompatActivity {
         if (requestCode == MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Permit = true;
-                loadFile(null);
+                loadFile(mEditText);
             } else {
                 // Permission Denied
                 Toast.makeText(DemoActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
@@ -150,8 +196,10 @@ public class DemoActivity extends AppCompatActivity {
     private void toast(String msg) {
         if (t != null) {
             t.cancel();
+            t.setText(msg);
+        }else{
+            t = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
         }
-        t = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
         t.show();
     }
 }

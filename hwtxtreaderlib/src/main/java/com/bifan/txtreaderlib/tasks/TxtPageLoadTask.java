@@ -38,13 +38,11 @@ public class TxtPageLoadTask implements ITxtTask {
         if (midPage != null && midPage.isFullPage()) {
             nextPage = readerContext.getPageDataPipeline().getPageStartFromProgress(midPage.getLastChar().ParagraphIndex, midPage.getLastChar().CharIndex + 1);
         }
-
-        ELogger.log(tag, "获取进度数据完成");
-        ELogger.log(tag, "startParagraphIndex/ startCharIndex+" + startParagraphIndex + "/" + startCharIndex);
+        ELogger.log(tag, "获取进度数据完成,startParagraphIndex/ startCharIndex+" + startParagraphIndex + "/" + startCharIndex);
 
         //show the data
         if (firstPage != null) {
-            ELogger.log(tag, "firstPage:" + firstPage.toString());
+           // ELogger.log(tag, "firstPage:" + firstPage.toString());
             if (!firstPage.HasData()) {
                 firstPage = null;
             }
@@ -53,7 +51,7 @@ public class TxtPageLoadTask implements ITxtTask {
         }
 
         if (midPage != null) {
-            ELogger.log(tag, "midPage:" + midPage.toString());
+//            ELogger.log(tag, "midPage:" + midPage.toString());
             if (!midPage.HasData()) {
                 midPage = null;
             }
@@ -62,7 +60,7 @@ public class TxtPageLoadTask implements ITxtTask {
         }
 
         if (nextPage != null) {
-            ELogger.log(tag, "nextPage:" + nextPage.toString());
+//            ELogger.log(tag, "nextPage:" + nextPage.toString());
             if (!nextPage.HasData()) {
                 nextPage = null;
             }

@@ -36,60 +36,76 @@
             android:text="选择文件" />
     </RelativeLayout>
 
-    <Button
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editext"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="16sp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/shape_demo_bt"
-        android:onClick="loadFile"
-        android:text="播放文件"
-        android:textColor="#ffffff" />
+        android:textSize="18sp"
+        android:text="最近文档:"/>
+    <ListView
+        android:id="@+id/demo_listBooks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editext"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="16sp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape_demo_bt"
+            android:onClick="loadFile"
+            android:text="播放文件"
+            android:textColor="#ffffff" />
 
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editext"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textSize="16sp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/shape_demo_bt"
-        android:onClick="loadStr"
-        android:text="播放字符串"
-        android:textColor="#ffffff" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editext"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape_demo_bt"
+            android:onClick="loadStr"
+            android:text="播放字符串"
+            android:textColor="#ffffff" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editext"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:textSize="16sp"
-        android:background="@drawable/shape_demo_bt"
-        android:onClick="displayMore"
-        android:text="多个演示"
-        android:textColor="#ffffff" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editext"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:textSize="16sp"
+            android:background="@drawable/shape_demo_bt"
+            android:onClick="displayMore"
+            android:text="多个演示"
+            android:textColor="#ffffff" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editext"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="16sp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/shape_demo_bt"
-        android:onClick="onVerticalMode"
-        android:text="竖向古风"
-        android:textColor="#ffffff" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editext"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="16sp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape_demo_bt"
+            android:onClick="onVerticalMode"
+            android:text="竖向古风"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
 </LinearLayout>

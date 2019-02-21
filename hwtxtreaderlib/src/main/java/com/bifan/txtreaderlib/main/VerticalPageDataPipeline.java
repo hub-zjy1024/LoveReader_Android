@@ -37,8 +37,8 @@ public class VerticalPageDataPipeline implements IPageDataPipeline{
         int PageLineNum = param.PageLineNum;
         int PageWidth = param.PageWidth;
         int LineWidth = (int) param.LineWidth;
-        float lineHeight = readerContext.getPageParam().LineHeight;
-        float textPadding = readerContext.getPageParam().TextPadding;
+        float lineHeight = param.LineHeight;
+        float textPadding = param.TextPadding;
 
         int CurrentPaIndex = paragraphIndex;
         int startIndex = charIndex;
